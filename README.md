@@ -21,8 +21,8 @@ of this script + "_" + the projectname + ".txt", e.g.:
 For now this script has to run under a bourne shell, not POSIX sh, to use
 virtualenvwrapper correctly. Nevertheless this script has been written to be
 POSIX shell-friendly. It was inspired by, and was initially based on:
- [Brubeck's installation instructions](http://brubeck.io/installing.html)
- [An Isolated Install howto blogpost](http://emptysquare.net/blog/how-to-do-an-isolated-install-of-brubeck/)
+* [Brubeck's installation instructions](http://brubeck.io/installing.html)
+* [An Isolated Install howto blogpost](http://emptysquare.net/blog/how-to-do-an-isolated-install-of-brubeck/)
 
 ## Documentation
 
