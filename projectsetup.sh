@@ -185,7 +185,7 @@ _proc_app() {
 }
 
 # process the recipe
-echo "$_input_contents" | \
+echo $_input_contents | \
 {
 	while true; do
 		_arg_num=1
