@@ -77,7 +77,7 @@ done
 test -n "$1"
 
 # get the recipe contents
-_input_contents="$(cat "${_scriptname}_${1}.txt")"
+_input_contents="$(cat "${_scriptname}_${1}.txt" | sed "s/'/'\\\\''/g;1s/^/'/;\$s/\$/'/")"
 
 # setup global stuff
 if test 1 = "$_self_contained"; then
