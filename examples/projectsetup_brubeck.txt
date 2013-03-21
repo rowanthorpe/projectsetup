@@ -11,7 +11,7 @@ _i
 zedshaw
 **
 **
-sed -i -e '1 i OPTFLAGS += -I\\$(_root_dir)/include -L\\$(_root_dir)/lib' -e '1,6 s:^PREFIX?=/usr/local\\$:PREFIX?=\\$(_root_dir):' Makefile
+sed -i -e '1 i OPTFLAGS += -I\$(_root_dir)/include -L\$(_root_dir)/lib' -e '1,6 s:^PREFIX?=/usr/local\$:PREFIX?=\$(_root_dir):' Makefile
 ====
 libev
 _cvs
@@ -72,7 +72,7 @@ _pysui
 j2labs
 **
 **
-sed -i -e 's/^\\([ \\t]\\+\\)from gevent_zeromq import zmq$/\\1import zmq.green as zmq/' brubeck/connections.py
+sed -i -e 's/^\([ \t]\+\)from gevent_zeromq import zmq$/\1import zmq.green as zmq/' brubeck/connections.py
 ====
 #
 #
