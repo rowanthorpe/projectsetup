@@ -2,14 +2,14 @@
 
 ## Description
 
-Automate building a project and its dependencies based on a recipe file.
+Automates building a project and its dependencies based on a recipe file.
 
 ## Notes
 
 Progress is marked using `xxx.DONE_xxx` files in the build dir. Remove specific
 progress files to redo those steps.
 
-There is experimental support for building inside virtualenvwrapper using the
+There is experimental support for building inside `virtualenvwrapper` using the
 `--self-contained` (or `-s`) option. This causes it to work in (and install
 everything into) a self-contained directory. The virtualenv will have the same
 name as the projectname.
@@ -20,14 +20,14 @@ of this script + "_" + the projectname + ".txt", e.g.:
 
 For now this script has to run under a bourne shell, not POSIX sh, to use
 virtualenvwrapper correctly. Nevertheless this script has been written to be
-POSIX shell-friendly. It was inspired by, and initially based on:
+POSIX shell-friendly. It was inspired by, and was initially based on:
  [Brubeck's installation instructions](http://brubeck.io/installing.html)
  [An Isolated Install howto blogpost](http://emptysquare.net/blog/how-to-do-an-isolated-install-of-brubeck/)
 
 ## Documentation
 
-Until documentation is improved, see the included example recipes to derive
-the structure.
+Until documentation is improved, see the included example recipes and read
+the script itself to derive the recipe structure.
 
 ## Downloading
 
