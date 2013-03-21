@@ -33,7 +33,7 @@ while test -n "$1"; do
 		cat <<EOH >&2
 Usage: ${_scriptname} [OPTIONS] "projectname"
 
-Automate building a project and its dependencies based on a recipe file.
+Automates building a project and its dependencies based on a recipe file.
 
 OPTIONS
 
