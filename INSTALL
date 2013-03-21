@@ -1,0 +1,6 @@
+Being a one-script project, this is trivially easy to install and use. Just
+copy projectsetup.sh to somewhere in your PATH (or call it by pathname from
+anywhere you want). Other than a POSIX shell and the basic POSIX tools, you
+only need virtualenvwrapper (and virtualenv) if you activate it with the
+appropriate option, and other tools only if your recipe actually calls them
+(e.g. _pysub requires python and some modules, etc...).
