@@ -77,7 +77,7 @@ done
 test -n "$1"
 
 # get the recipe contents
-_input_contents="$(cat "${_scriptname}_${1}.txt" | sed "s/'/'\\\\''/g;1s/^/'/;\$s/\$/'/")"
+_input_contents="$(cat "${_scriptname}_${1}.txt")"
 
 # setup global stuff
 if test 1 = "$_self_contained"; then
@@ -148,22 +148,22 @@ _get_wrap() {
 			if test -d "$_app"; then
 				rm -fR "$_app"
 			else
-				echo "** _app directory name already exists and is not a directory! **"
+				printf %s\\n "** _app directory name already exists and is not a directory! **" >&2
 				false
 			fi
 		fi
-		test -z "$_pre_get_eval" || eval "$_pre_get_eval"
+		test -z "$_pre_get_eval" || eval $_pre_get_eval
 		"$_get_func"
-		test -z "$_post_get_eval" || eval "$_post_get_eval"
+		test -z "$_post_get_eval" || eval $_post_get_eval
 		touch "${_app}.DONE_GET"
 	fi
 }
 _compile_wrap() {
 	if ! test -e "${_app}.DONE_COMPILE"; then
 		cd "$_app"
-		test -z "$_pre_compile_eval" || eval "$_pre_compile_eval"
+		test -z "$_pre_compile_eval" || eval $_pre_compile_eval
 		"$_compile_func"
-		test -z "$_post_compile_eval" || eval "$_post_compile_eval"
+		test -z "$_post_compile_eval" || eval $_post_compile_eval
 		cd ..
 		touch "${_app}.DONE_COMPILE"
 	fi
@@ -171,9 +171,9 @@ _compile_wrap() {
 _install_wrap() {
 	if ! test -e "${_app}.DONE_INSTALL"; then
 		cd "$_app"
-		test -z "$_pre_compile_eval" || eval "$_pre_compile_eval"
+		test -z "$_pre_compile_eval" || eval $_pre_compile_eval
 		"$_install_func"
-		test -z "$_post_compile_eval" || eval "$_post_compile_eval"
+		test -z "$_post_compile_eval" || eval $_post_compile_eval
 		cd ..
 		touch "${_app}.DONE_INSTALL"
 	fi
@@ -185,7 +185,6 @@ _proc_app() {
 }
 
 # process the recipe
-echo $_input_contents | \
 {
 	while true; do
 		_arg_num=1
@@ -199,9 +198,9 @@ echo $_input_contents | \
 		_post_compile_eval=
 		_pre_install_eval=
 		_post_install_eval=
-		echo "****"
+		printf %s\\n "****" >&2
 		while true; do
-			if ! read _ln; then
+			if ! IFS= read -r _ln; then
 				test -z "$_app" || _proc_app
 				break 2
 			fi
@@ -213,24 +212,27 @@ echo $_input_contents | \
 				test -z "$_app" || _proc_app
 				break
 			fi
-			if test "${_ln:0:1}" = "#"; then
+			_tmp_ln=x$_ln
+			if test x = "$_tmp_ln" || test "${_tmp_ln:0:2}" = "x#"; then
 				continue
 			fi
 			case "$_arg_num" in
-				1)  _app="$_ln"; echo "** _app=$_app";;
-				2)  _get_func="$_ln"; echo "** _get_func=$_get_func";;
-				3)  _compile_func="$_ln"; echo "** _compile_func=$_compile_func";;
-				4)  _install_func="$_ln"; echo "** _install_func=$_install_func";;
-				5)  _extra_get_info="$_ln"; echo "** _extra_get_info=$_extra_get_info";;
-				6)  _pre_get_eval="$_ln"; echo "** _pre_get_eval=$_pre_get_eval";;
-				7)  _post_get_eval="$_ln"; echo "** _post_get_eval=$_post_get_eval";;
-				8)  _pre_compile_eval="$_ln"; echo "** _pre_compile_eval=$_pre_compile_eval";;
-				9)  _post_compile_eval="$_ln"; echo "** _post_compile_eval=$_post_compile_eval";;
-				10) _pre_install_eval="$_ln"; echo "** _pre_install_eval=$_pre_install_eval";;
-				11) _post_install_eval="$_ln"; echo "** _post_install_eval=$_post_install_eval";;
+				1)  _app="$_ln"; printf %s\\n "** _app=$_app" >&2;;
+				2)  _get_func="$_ln"; printf %s\\n "** _get_func=$_get_func" >&2;;
+				3)  _compile_func="$_ln"; printf %s\\n "** _compile_func=$_compile_func" >&2;;
+				4)  _install_func="$_ln"; printf %s\\n "** _install_func=$_install_func" >&2;;
+				5)  _extra_get_info="$_ln"; printf %s\\n "** _extra_get_info=$_extra_get_info" >&2;;
+				6)  _pre_get_eval="$_ln"; printf %s\\n "** _pre_get_eval=$_pre_get_eval" >&2;;
+				7)  _post_get_eval="$_ln"; printf %s\\n "** _post_get_eval=$_post_get_eval" >&2;;
+				8)  _pre_compile_eval="$_ln"; printf %s\\n "** _pre_compile_eval=$_pre_compile_eval" >&2;;
+				9)  _post_compile_eval="$_ln"; printf %s\\n "** _post_compile_eval=$_post_compile_eval" >&2;;
+				10) _pre_install_eval="$_ln"; printf %s\\n "** _pre_install_eval=$_pre_install_eval" >&2;;
+				11) _post_install_eval="$_ln"; printf %s\\n "** _post_install_eval=$_post_install_eval" >&2;;
 				*) false;;
 			esac
 			_arg_num=`expr $_arg_num + 1`
 		done
 	done
-}
+} << EOF
+$_input_contents
+EOF

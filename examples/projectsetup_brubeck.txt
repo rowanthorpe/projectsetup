@@ -74,8 +74,9 @@ j2labs
 **
 sed -i -e 's/^\([ \t]\+\)from gevent_zeromq import zmq$/\1import zmq.green as zmq/' brubeck/connections.py
 ====
-#
-#
+
+
+## OTHER STUFF
 # This was needed with earlier versions of pyzmq. Now it is included in pyzmq.
 #====
 #gevent-zeromq
