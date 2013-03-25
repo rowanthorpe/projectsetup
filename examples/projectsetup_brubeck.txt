@@ -77,7 +77,7 @@ sed -i -e 's/^\([ \t]\+\)from gevent_zeromq import zmq$/\1import zmq.green as zm
 
 
 ## OTHER STUFF
-# This was needed with earlier versions of pyzmq. Now it is included in pyzmq.
+# This was needed to supplement earlier versions of pyzmq. Now it is included.
 #====
 #gevent-zeromq
 #_gh
